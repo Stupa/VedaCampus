@@ -1,0 +1,161 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../vc-userSimpleEdit/vc-userSimpleEdit.html">
+<link rel="import" href="../vc-userEmailEdit/vc-userEmailEdit.html">
+<link rel="import" href="../vc-userPasswordEdit/vc-userPasswordEdit.html">
+<link rel="import" href="../vc-userLoginButton/vc-userLoginButton.html">
+<link rel="import" href="../vc-userLogoutButton/vc-userLogoutButton.html">
+<link rel="import" href="../vc-userCreateAccountButton/vc-userCreateAccountButton.html">
+<link rel="import" href="../vc-userValidateAccountButton/vc-userValidateAccountButton.html">
+<link rel="import" href="vc-userViewStyle.html">
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-styles/demo-pages.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+
+<dom-module id="vc-userView">
+  <template>
+    <style include="vc-userViewStyle"></style>
+
+    <!-- Login panel -->
+    <div class="panelContainer" id="loginPanelContainer">
+      <paper-drawer-panel id="paperDrawerPanel1" drawer-width="[[drawerwidth1]]" on-iron-select="_userViewOpenTabButtonTap1" right-drawer force-narrow>
+
+        <div drawer>
+          <div class="circleUserView" id="crappyFocus" tabindex="0"></div>
+          <div class="circleUserView" id="panelCircle">
+            <a href="">
+              <iron-icon src={{unloggedIcon}} class="big" paper-drawer-toggle></iron-icon>
+            </a>
+          </div>
+          <div class="card" id="card1">
+            <div id="loginEdit">
+              <vc-userEmailEdit id="userViewLoginTxtEmail" email={{txtEmail}}></vc-userEmailEdit>
+              <vc-userPasswordEdit password={{txtPassword}}></vc-userPasswordEdit>
+            </div>
+            <div id="loginEdit">
+              <vc-userLoginButton id="userLoginButton" email=[[txtEmail]] password=[[txtPassword]] paper-drawer-toggle></vc-userLoginButton>
+              <vc-userCreateAccountButton id="userCreateAccountButton" paper-drawer-toggle></vc-userCreateAccountButton>
+            </div>
+          </div>
+        </div>
+
+        <div main>
+          <div>
+            <div class="circleUserView" id="initPanel">
+              <a href="">
+                <iron-icon src={{unloggedIcon}} class="big" id="initPanel" paper-drawer-toggle></iron-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </paper-drawer-panel>
+    </div>
+
+
+    <!-- Logout panel -->
+    <div class="panelContainer" id="logoutPanelContainer">
+      <paper-drawer-panel id="paperDrawerPanel2" drawer-width="[[drawerwidth2]]" on-iron-select="_userViewOpenTabButtonTap2" right-drawer force-narrow>
+
+        <div drawer>
+          <div class="circleUserView" id="crappyFocus" tabindex="0"></div>
+          <div class="circleUserView" id="panelCircle">
+            <a href="">
+              <iron-icon src={{loggedIcon}} class="big" paper-drawer-toggle></iron-icon>
+            </a>
+          </div>
+          <div class="card" id="card2">
+            <div id="loginEdit">
+              <vc-userLogoutButton id="userLogoutButton1" paper-drawer-toggle></vc-userLogoutButton>
+            </div>
+          </div>
+        </div>
+
+        <div main>
+          <div>
+            <div class="circleUserView" id="initPanel">
+              <a href="">
+                <iron-icon src={{loggedIcon}} class="big" id="initPanel" paper-drawer-toggle></iron-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </paper-drawer-panel>
+    </div>
+
+
+    <!-- Account creation panel -->
+    <div class="panelContainer" id="createAccountPanelContainer">
+      <paper-drawer-panel id="paperDrawerPanel3" drawer-width="[[drawerwidth3]]" on-iron-select="_userViewOpenTabButtonTap3" right-drawer force-narrow>
+
+        <div drawer>
+          <div class="circleUserView" id="crappyFocus" tabindex="0"></div>
+          <div class="circleUserView" id="panelCircle">
+            <a href="">
+              <iron-icon src={{unloggedIcon}} class="big" paper-drawer-toggle></iron-icon>
+            </a>
+          </div>
+
+          <div class="card" id="card3">
+            <div id="loginEdit">
+              <vc-userValidateAccountButton id="userValidateAccountButton" paper-drawer-toggle></vc-userValidateAccountButton>
+            </div>
+            <div id="loginEdit">
+              <vc-userEmailEdit email={{txtEmail}}></vc-userEmailEdit>
+              <vc-userPasswordEdit password={{txtPassword}}></vc-userPasswordEdit>
+              <vc-userSimpleEdit label="testLabel" value="testValue"></vc-userSimpleEdit>
+            </div>
+          </div>
+        </div>
+
+        <div main>
+          <div>
+            <div class="circleUserView" id="initPanel">
+              <a href="">
+                <iron-icon src={{unloggedIcon}} class="big" id="initPanel" paper-drawer-toggle></iron-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </paper-drawer-panel>
+    </div>
+
+
+    <script>
+      (function (global) {
+
+        'use strict';
+
+        var DRAWER_ATTR = 'right-drawer';
+
+        var pdp = document.getElementById('paperDrawerPanel');
+
+        global.flipDrawer = function () {
+          if (pdp.hasAttribute(DRAWER_ATTR)) {
+            pdp.removeAttribute(DRAWER_ATTR);
+          } else {
+            pdp.setAttribute(DRAWER_ATTR, '');
+          }
+        }
+
+      } (this));
+    </script>
+
+  </template>
+
+  <script src=vc-userView.js></script>
+</dom-module>
