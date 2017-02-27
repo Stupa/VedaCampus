@@ -10,13 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="vc-userCreateAccountButtonStyle.html">
+<link rel="import" href="../../components/vc-userView/vc-userView-shared-styles.html">
+<link rel="import" href="../../components/vc-userButton/vc-userButton.html">
+
 
 <dom-module id="vc-userCreateAccountButton">
   <template>
-    <style include="vc-userCreateAccountButtonStyle"></style>
-    <div id="btnCreateAccount" class="vc-userCreateAccountButton">
-      <a href="">Nouveau venu</a>
-    </div>
+    <vc-userButton buttonid="btnCreateAccount" buttonlabel="Nouveau compte" buttonimage="{{buttonimage}}"></vc-userButton>
   </template>
 
 

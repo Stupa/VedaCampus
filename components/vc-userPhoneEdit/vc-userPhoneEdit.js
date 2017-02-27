@@ -1,5 +1,5 @@
 Polymer({
-    is: 'vc-userSimpleEdit',
+    is: 'vc-userPhoneEdit',
     properties: {
         simplevalue: {
             type: String,

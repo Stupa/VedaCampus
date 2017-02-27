@@ -1,25 +1,14 @@
 Polymer({
     is: 'vc-userLogoutButton',
     properties: {
-        icon: {
+        buttonimage: {
             type: String,
-            value: "components/vc-userLogoutButton/images/ico04.png"
-        },
-        pressed: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-        },
+            value: "../../components/vc-userView/images/logout.png"
+        }
     },
     listeners: {
         'tap': 'logoutUser'
     },
-
-    ready: function () {
-
-    },
-
     logoutUser: function () {
         this.fire('eventFromUserLogoutButton', {});
     }

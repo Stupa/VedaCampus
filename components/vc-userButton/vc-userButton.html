@@ -9,15 +9,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="vc-userLoginButtonStyle.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="vc-userButtonStyle.html">
 <link rel="import" href="../../components/vc-userView/vc-userView-shared-styles.html">
-<link rel="import" href="../../components/vc-userButton/vc-userButton.html">
 
 
-<dom-module id="vc-userLoginButton">
+<dom-module id="vc-userButton">
   <template>
-    <vc-userButton buttonid="btnLogin" buttonlabel="Connexion" buttonimage="{{buttonimage}}"></vc-userButton>
+    <style include="vc-userView-shared-styles"></style>
+    <style include="vc-userButtonStyle"></style>
+    <paper-icon-button id="[[buttonid]]" class="vc-userViewButton" src="{{buttonimage}}" title="[[buttonlabel]]">
+    </paper-icon-button>
   </template>
 
-  <script src="vc-userLoginButton.js"></script>
+  <script src="vc-userButton.js"></script>
 </dom-module>

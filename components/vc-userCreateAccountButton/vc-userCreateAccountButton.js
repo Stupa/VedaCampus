@@ -1,22 +1,13 @@
 Polymer({
     is: 'vc-userCreateAccountButton',
     properties: {
-        icon: {
+        buttonimage: {
             type: String,
-            value: "components/vc-userCreateAccountButton/images/ico04.png"
-        },
-        pressed: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-        },
+            value: "../../components/vc-userView/images/edit_account.png"
+        }
     },
     listeners: {
         'tap': 'createAccount'
-    },
-
-    ready: function () {
     },
 
     createAccount: function () {

@@ -1,20 +1,24 @@
 Polymer({
     is: 'vc-userPasswordEdit',
     properties: {
-        password: { 
+        password: {
             type: String,
             observer: "passwordChanged",
+            notify: true
+        },
+        passwordcheck: {
+            type: Boolean,
             notify: true
         }
     },
     passwordChanged: function () {
         var valid = this.$.txtPassword.validate();
-        if (!valid == null) {
-            if (!valid) {
-            }
-        }
-        else {
-           // this.fire('eventFromuserPasswordEdit', { txtPassword: this.$.txtPassword.value });
-        }
+        var strtest = this.password;
+        var regex = /^[A-Za-z0-9]{6,254}$/;
+        var goodFormat = false;
+        
+        goodFormat = ((valid == null) || (valid == true)) && (strtest.match(regex) != null);
+        this.passwordcheck = !goodFormat;
+        this.$.txtPassword.invalid = !goodFormat;   
     }
 });

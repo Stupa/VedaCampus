@@ -1,15 +1,29 @@
 Polymer({
     is: 'vc-userView',
     properties: {
-        txtEmail: {
+        // User fields
+        useremail: {
             type: String,
             reflectToAttribute: true,
             notify: true,
         },
-        txtPassword: {
+        userpassword: {
             type: String,
             notify: true
         },
+        usernickname: {
+            type: String,
+            notify: true,
+        },
+        usericon: {
+            type: String,
+            notify: true,
+        },
+        userphonenumber: {
+            type: String,
+            notify: true,
+        },
+        // User status        
         userlogged: {
             type: Boolean,
             value: false,
@@ -22,27 +36,32 @@ Polymer({
             notify: true,
             observer: "_setVisibility",
         },
-        fixed: {
+        userpasswordcheck: {
             type: Boolean,
-            value: true
+            notify: true,
         },
-        drawerwidth1: {
+        useremailcheck: {
+            type: Boolean,
+            notify: true,
+        },
+        // UI params
+        drawerwidthLogin: {
             type: String,
             notify: true,
         },
-        drawerwidth2: {
+        drawerwidthLogout: {
             type: String,
             notify: true,
         },
-        drawerwidth3: {
+        drawerwidthCreateAccount: {
             type: String,
             notify: true,
         },
-        unloggedIcon: {
+        unloggedicon: {
             type: String,
             value: "../../components/vc-userView/images/tabico-deco.png"
         },
-        loggedIcon: {
+        loggedicon: {
             type: String,
             value: "../../components/vc-userView/images/tabico.png"
         },
@@ -52,26 +71,30 @@ Polymer({
     ready: function () {
         this.addEventListener('eventFromUserCreateAccountButton', this._createAccount);
         this.addEventListener('eventFromUserValidateAccountButton', this._validateAccount);
+        this.addEventListener('eventFromUserBackButton', this._openLogin);
+
+
+
     },
 
-    _userViewOpenTabButtonTap1: function () {
-        var currImgRect1 = this.$.card1.getBoundingClientRect();
-        if (currImgRect1.width > 0) {
-            this.drawerwidth1 = currImgRect1.width;
+    _userViewSetWidthLogin: function () {
+        var currImgRect = this.$.cardLogin.getBoundingClientRect();
+        if (currImgRect.width > 0) {
+            this.drawerwidthLogin = currImgRect.width;
         }
     },
 
-    _userViewOpenTabButtonTap2: function () {
-        var currImgRect2 = this.$.card2.getBoundingClientRect();
-        if (currImgRect2.width > 0) {
-            this.drawerwidth2 = currImgRect2.width;
+    _userViewSetWidthLogout: function () {
+        var currImgRect = this.$.cardLogout.getBoundingClientRect();
+        if (currImgRect.width > 0) {
+            this.drawerwidthLogout = currImgRect.width;
         }
     },
 
-    _userViewOpenTabButtonTap3: function () {
-        var currImgRect3 = this.$.card3.getBoundingClientRect();
-        if (currImgRect3.width > 0) {
-            this.drawerwidth3 = currImgRect3.width;
+    _userViewSetWidthCreateAccount: function () {
+        var currImgRect = this.$.cardCreateAccount.getBoundingClientRect();
+        if (currImgRect.width > 0) {
+            this.drawerwidthCreateAccount = currImgRect.width;
         }
     },
 
@@ -80,6 +103,26 @@ Polymer({
     },
 
     _validateAccount: function (event) {
+        var DBuseremail = '';
+        var DBuserpassword = '';
+        var DBusernickname = '';
+        var DBusericon = '';
+        var DBuserphonenumber = '';
+
+        if (!this.useremailcheck) { DBuseremail = this.useremail; }
+        if (!this.userpasswordcheck) { DBuserpassword = this.userpassword; }
+        DBusernickname = this.usernickname;
+        if (this.usericon == '') {
+            DBusericon = "../../components/vc-userView/images/offline-user-icon.png";
+        }
+        else {
+            DBusericon = this.usericon;
+        }
+        DBuserphonenumber = this.userphonenumber;
+
+    },
+
+    _openLogin: function (event) {
         this.noaccountcreation = true;
     },
 
@@ -101,7 +144,6 @@ Polymer({
         return formatDisplayTypeRes;
 
     },
-
 
     _setVisibilityLogout: function () {
         var hide = ((!this.userlogged || !this.noaccountcreation));
@@ -127,13 +169,13 @@ Polymer({
             this.$.createAccountPanelContainer.style.display = accountCreationVisibility.displayTypeParam;
 
             if (loginVisibility.toggleParam) {
-                this.$.paperDrawerPanel1.togglePanel();
+                this.$.paperDrawerPanelLogin.togglePanel();
             }
             if (logoutVisibility.toggleParam) {
-                this.$.paperDrawerPanel2.togglePanel();
+                this.$.paperDrawerPanelLogout.togglePanel();
             }
             if (accountCreationVisibility.toggleParam) {
-                this.$.paperDrawerPanel3.togglePanel();
+                this.$.paperDrawerPanelCreateAccount.togglePanel();
             }
         }
     },

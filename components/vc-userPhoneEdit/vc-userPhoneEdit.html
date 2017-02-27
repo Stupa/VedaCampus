@@ -11,21 +11,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
-<link rel="import" href="vc-userSimpleEditStyle.html">
+<link rel="import" href="vc-userPhoneEditStyle.html">
 <link rel="import" href="../../components/vc-userView/vc-userView-shared-styles.html">
 
 
 
-<dom-module id="vc-userSimpleEdit">
+<dom-module id="vc-userPhoneEdit">
   <template>
-    
     <style include="vc-userView-shared-styles"></style>
-    <style include="vc-userSimpleEditStyle"></style>
-
-    <paper-input maxlength="254" label="[[simplelabel]]" id="txtSimple" value="{{simplevalue}}">
-
+    <style include="vc-userPhoneEditStyle"></style>
+    <paper-input-container always-float-label="" attr-for-value="value" class="x-scope paper-input-container-0">
+      <!--  <div class="floated-label-placeholder style-scope paper-input-container" aria-hidden="true">&nbsp;</div>-->
+      <template is="dom-if" class="style-scope paper-input-container"></template>
+      <div class="input-content label-is-floating style-scope paper-input-container">
+        <div class="label-and-input-container style-scope paper-input-container" id="labelAndInputContainer" style="position: static;">
+          <label>N° tél.</label>
+          <ssn-input class="paper-input-input x-scope ssn-input-0">
+            <ssn-validator class="style-scope ssn-input"></ssn-validator>
+            <div class="vc-userPhoneEdit container style-scope ssn-input">
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">
+            </div>
+          </ssn-input>
+        </div>
+      </div>
+      <div class="underline style-scope paper-input-container">
+        <div class="unfocused-line style-scope paper-input-container"></div>
+        <div class="focused-line style-scope paper-input-container"></div>
+      </div>
+      <div class="add-on-content style-scope paper-input-container">
+        <paper-input-error add-on="[0-9]*" class="x-scope paper-input-error-0">
+          SSN invalid!
+        </paper-input-error>
+      </div>
+    </paper-input-container>
   </template>
-  <script src=vc-userSimpleEdit.js></script>
+  <script src=vc-userPhoneEdit.js></script>
 </dom-module>
 
 
