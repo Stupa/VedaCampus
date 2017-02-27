@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../components/vc-userView/vc-userView-shared-styles.html">
 
 
-
+{{phonenumbervalue}}
 <dom-module id="vc-userPhoneEdit">
   <template>
     <style include="vc-userView-shared-styles"></style>
@@ -24,16 +24,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!--  <div class="floated-label-placeholder style-scope paper-input-container" aria-hidden="true">&nbsp;</div>-->
       <template is="dom-if" class="style-scope paper-input-container"></template>
       <div class="input-content label-is-floating style-scope paper-input-container">
-        <div class="label-and-input-container style-scope paper-input-container" id="labelAndInputContainer" style="position: static;">
+        <div class="label-and-input-container style-scope paper-input-container" id="labelAndInputContainer" label="{{phonenumberlabel}}" style="position: static;">
           <label>N° tél.</label>
-          <ssn-input class="paper-input-input x-scope ssn-input-0">
+          <ssn-input class="paper-input-input x-scope ssn-input-0" id="testinput">
             <ssn-validator class="style-scope ssn-input"></ssn-validator>
             <div class="vc-userPhoneEdit container style-scope ssn-input">
-              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
-              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
-              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
-              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">              -
-              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input">
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input" bind-value="{{_n1}}">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input" bind-value="{{_n2}}">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input" bind-value="{{_n3}}">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input" bind-value="{{_n4}}">              -
+              <input is="iron-input" maxlength="2" size="2" aria-label="" class="vc-userPhoneEdit style-scope ssn-input" bind-value="{{_n5}}">
             </div>
           </ssn-input>
         </div>

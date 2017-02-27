@@ -59,11 +59,11 @@ Polymer({
         },
         unloggedicon: {
             type: String,
-            value: "../../components/vc-userView/images/tabico-deco.png"
+            value: "../../components/vc-userView/images/user_unlogged.png"
         },
         loggedicon: {
             type: String,
-            value: "../../components/vc-userView/images/tabico.png"
+            value: "../../components/vc-userView/images/user_logged.png"
         },
     },
 
@@ -72,9 +72,6 @@ Polymer({
         this.addEventListener('eventFromUserCreateAccountButton', this._createAccount);
         this.addEventListener('eventFromUserValidateAccountButton', this._validateAccount);
         this.addEventListener('eventFromUserBackButton', this._openLogin);
-
-
-
     },
 
     _userViewSetWidthLogin: function () {
@@ -108,18 +105,16 @@ Polymer({
         var DBusernickname = '';
         var DBusericon = '';
         var DBuserphonenumber = '';
-
-        if (!this.useremailcheck) { DBuseremail = this.useremail; }
-        if (!this.userpasswordcheck) { DBuserpassword = this.userpassword; }
+        DBuseremail = this.useremail;
+        DBuserpassword = this.userpassword;
         DBusernickname = this.usernickname;
         if (this.usericon == '') {
-            DBusericon = "../../components/vc-userView/images/offline-user-icon.png";
+            DBusericon = "../../components/vc-userView/images/default_user.png";
         }
         else {
             DBusericon = this.usericon;
         }
         DBuserphonenumber = this.userphonenumber;
-
     },
 
     _openLogin: function (event) {
