@@ -7,8 +7,9 @@ Polymer({
             notify: true,
             value: ''
         },
-        emailcheck: {
+        emailerror: {
             type: Boolean,
+            value: true,
             notify: true,
         },
     },
@@ -19,7 +20,7 @@ Polymer({
 
         var goodFormat = false;
         goodFormat = ((valid == null) || (valid == true)) && (strtest.match(regex) != null);
-        this.emailcheck = !goodFormat;
+        this.emailerror = !goodFormat;
         this.$.txtEmail.invalid = !goodFormat;
     },
 

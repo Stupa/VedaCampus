@@ -19,11 +19,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../vc-userCreateAccountButton/vc-userCreateAccountButton.html">
 <link rel="import" href="../vc-userValidateAccountButton/vc-userValidateAccountButton.html">
 <link rel="import" href="../vc-userBackButton/vc-userBackButton.html">
+<link rel="import" href="../vc-user-main-panel-button/vc-user-main-panel-button.html">
+
 <link rel="import" href="vc-userViewStyle.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-styles/demo-pages.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
 
 
 <dom-module id="vc-userView">
@@ -33,116 +36,92 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Login panel -->
     <div class="panelContainer" id="loginPanelContainer">
-      <paper-drawer-panel id="paperDrawerPanelLogin" drawer-width="[[drawerwidthLogin]]" on-iron-select="_userViewSetWidthLogin"
-        right-drawer force-narrow>
+      <paper-drawer-panel id="paperDrawerPanelLogin" drawer-width="auto" disable-swipe="true" on-iron-select="_getLoginWidth" right-drawer
+        force-narrow>
 
-        <div drawer>
-          <div class="circle" id="crappyFocus" tabindex="0"></div>
-          <div class="circle" id="panelCircle">
-            <a href="">
-              <iron-icon src="[[unloggedicon]]" class="big" paper-drawer-toggle></iron-icon>
-            </a>
-          </div>
+        <div drawer id="loginDrawer">
+          <div class="circle2" id="crappyFocus" tabindex="0"></div>
+
           <div class="card" id="cardLogin">
             <div class="userViewColumn">
-              <vc-userEmailEdit id="userViewLoginTxtEmail" email="{{useremail}}" emailcheck="{{useremailcheck}}"></vc-userEmailEdit>
-              <vc-userPasswordEdit password="{{userpassword}}" passwordcheck="{{userpasswordcheck}}"></vc-userPasswordEdit>
+              <vc-userEmailEdit id="userViewLoginTxtEmail" email="{{useremail}}" emailerror="{{useremailerror}}"></vc-userEmailEdit>
+              <vc-userPasswordEdit password="{{userpassword}}" passworderror="{{userpassworderror}}"></vc-userPasswordEdit>
             </div>
             <div class="userViewColumn">
-              <vc-userLoginButton id="userLoginButton" email="[[useremail]]" password="[[userpassword]]" emailcheck="[[useremailcheck]]" passwordcheck="[[userpasswordcheck]]" paper-drawer-toggle></vc-userLoginButton>
-              <vc-userCreateAccountButton id="userCreateAccountButton" paper-drawer-toggle></vc-userCreateAccountButton>
+              <vc-userLoginButton id="userLoginButton" email="[[useremail]]" password="[[userpassword]]" emailerror="[[useremailerror]]"
+                passworderror="[[userpassworderror]]"></vc-userLoginButton>
+              <vc-userCreateAccountButton id="userCreateAccountButton"></vc-userCreateAccountButton>
             </div>
           </div>
         </div>
 
         <div main>
-          <div>
-            <div class="circle" id="initPanel">
-              <a href="">
-                <iron-icon src="[[unloggedicon]]" class="big" id="initPanel" paper-drawer-toggle></iron-icon>
-              </a>
-            </div>
-          </div>
+          <vc-user-main-panel-button sliderwidth="[[loginwidth]]" usermainpanelicon="[[unloggedicon]]" opened="[[loginopened]]" paper-drawer-toggle></vc-user-main-panel-button>
         </div>
 
-        </paper-drawer-panel>
+      </paper-drawer-panel>
     </div>
 
 
     <!-- Logout panel -->
     <div class="panelContainer" id="logoutPanelContainer">
-      <paper-drawer-panel id="paperDrawerPanelLogout" drawer-width="[[drawerwidthLogout]]" on-iron-select="_userViewSetWidthLogout"
+      <paper-drawer-panel id="paperDrawerPanelLogout" drawer-width="auto" disable-swipe="true" on-iron-select="_getLogoutWidth"
         right-drawer force-narrow>
 
-        <div drawer>
-          <div class="circle" id="crappyFocus" tabindex="0"></div>
-          <div class="circle" id="panelCircle">
-            <a href="">
-              <iron-icon src="[[loggedicon]]" class="big" paper-drawer-toggle></iron-icon>
-            </a>
-          </div>
+        <div drawer id="logoutDrawer">
+          <div class="circle2" id="crappyFocus" tabindex="0"></div>
           <div class="card" id="cardLogout">
             <div class="userViewColumn">
-              <vc-userLogoutButton id="userLogoutButton1" paper-drawer-toggle></vc-userLogoutButton>
+              <vc-userLogoutButton id="userLogoutButton1"></vc-userLogoutButton>
             </div>
           </div>
         </div>
 
         <div main>
           <div>
-            <div class="circle" id="initPanel">
-              <a href="">
-                <iron-icon src="[[loggedicon]]" class="big" id="initPanel" paper-drawer-toggle></iron-icon>
-              </a>
-            </div>
+            <vc-user-main-panel-button sliderwidth="[[logoutwidth]]" usermainpanelicon="[[loggedicon]]" opened="[[logoutopened]]" paper-drawer-toggle></vc-user-main-panel-button>
+
           </div>
         </div>
 
-        </paper-drawer-panel>
+      </paper-drawer-panel>
     </div>
 
 
     <!-- Account creation panel -->
     <div class="panelContainer" id="createAccountPanelContainer">
-      <paper-drawer-panel id="paperDrawerPanelCreateAccount" drawer-width="[[drawerwidthCreateAccount]]" on-iron-select="_userViewSetWidthCreateAccount"
+      <paper-drawer-panel id="paperDrawerPanelCreateAccount" drawer-width="auto" disable-swipe="true" on-iron-select="_getCreateAccountWidth"
         right-drawer force-narrow>
 
         <div drawer>
-          <div class="circle" id="crappyFocus" tabindex="0"></div>
-          <div class="circle" id="panelCircle">
-            <a href="">
-              <iron-icon src="[[unloggedicon]]" class="big" paper-drawer-toggle></iron-icon>
-            </a>
-          </div>
+          <div class="circle2" id="crappyFocus" tabindex="0"></div>
 
           <div class="card" id="cardCreateAccount">
             <div class="userViewColumn">
-              <vc-userEmailEdit email="{{useremail}}" emailcheck="{{useremailcheck}}"></vc-userEmailEdit>
-              <vc-userPasswordEdit password="{{userpassword}}" passwordcheck="{{userpasswordcheck}}"></vc-userPasswordEdit>
+              <vc-userEmailEdit email="{{useremail}}" emailerror="{{useremailerror}}"></vc-userEmailEdit>
+              <vc-userPasswordEdit password="{{userpassword}}" passworderror="{{userpassworderror}}"></vc-userPasswordEdit>
             </div>
             <div class="userViewColumn">
-              <vc-userSimpleEdit simplelabel="Pseudonyme" simplevalue="{{usernickname}}"></vc-userSimpleEdit>
-              <vc-userSimpleEdit simplelabel="URL Icône ( 128px x 128px )" simplevalue="{{usericon}}"></vc-userSimpleEdit>
-              <vc-userPhoneEdit phonenumberlabel="N° tél." phonenumbervalue="{{userphonenumber}}"></vc-userPhoneEdit>
+              <vc-userSimpleEdit simplelabel="Pseudonyme" simplevalue="{{usernickname}}" simpleerror="{{usernicknameerror}}"></vc-userSimpleEdit>
+              <vc-userSimpleEdit simplelabel="URL Icône ( 128px x 128px )" simplevalue="{{usericon}}" simpleerror="{{usericonerror}}"></vc-userSimpleEdit>
+              <vc-userPhoneEdit simplelabel="N° tél." simplevalue="{{userphonenumber}}" phonenumbererror="{{userphonenumbererror}}"></vc-userPhoneEdit>
             </div>
             <div class="userViewColumn">
-              <vc-userValidateAccountButton id="userValidateAccountButton" paper-drawer-toggle emailcheck="[[useremailcheck]]" passwordcheck="[[userpasswordcheck]]"></vc-userValidateAccountButton>
-              <vc-userBackButton id="userBackButton" paper-drawer-toggle></vc-userBackButton>
+              <vc-userValidateAccountButton id="userValidateAccountButton" emailerror="[[useremailerror]]" passworderror="[[userpassworderror]]"
+                nicknameerror="[[usernicknameerror]]" iconerror="[[usericonerror]]" phonenumbererror="[[userphonenumbererror]]"></vc-userValidateAccountButton>
+              <vc-userBackButton id="userBackButton"></vc-userBackButton>
             </div>
           </div>
         </div>
 
         <div main>
           <div>
-            <div class="circle" id="initPanel">
-              <a href="">
-                <iron-icon src="[[unloggedicon]]" class="big" id="initPanel" paper-drawer-toggle></iron-icon>
-              </a>
-            </div>
+            <vc-user-main-panel-button sliderwidth="[[createaccountwidth]]" usermainpanelicon="[[unloggedicon]]" opened="[[createaccountopened]]"
+              paper-drawer-toggle></vc-user-main-panel-button>
           </div>
         </div>
 
-        </paper-drawer-panel>
+      </paper-drawer-panel>
     </div>
 
 
@@ -158,7 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             pdp.setAttribute(DRAWER_ATTR, '');
           }
         }
-      } (this));
+      }(this));
     </script>
 
   </template>

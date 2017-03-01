@@ -36,90 +36,141 @@ Polymer({
             notify: true,
             observer: "_setVisibility",
         },
-        userpasswordcheck: {
+        userpassworderror: {
             type: Boolean,
             notify: true,
         },
-        useremailcheck: {
+        useremailerror: {
+            type: Boolean,
+            notify: true,
+        },
+        usernicknameerror: {
+            type: Boolean,
+            notify: true,
+        },
+        usericonerror: {
+            type: Boolean,
+            notify: true,
+        },
+        userphonenumbererror: {
             type: Boolean,
             notify: true,
         },
         // UI params
-        drawerwidthLogin: {
-            type: String,
-            notify: true,
+        loginwidth: {
+            type: Number,
+            value: 0,
+            reflectToAttribute: true
         },
-        drawerwidthLogout: {
-            type: String,
-            notify: true,
+        logoutwidth: {
+            type: Number,
+            value: 0,
+            reflectToAttribute: true
         },
-        drawerwidthCreateAccount: {
-            type: String,
-            notify: true,
+        createaccountwidth: {
+            type: Number,
+            value: 0,
+            reflectToAttribute: true
+        },
+        loginopened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+        },
+        logoutopened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+        },
+        createaccountopened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
         },
         unloggedicon: {
             type: String,
-            value: "../../components/vc-userView/images/user_unlogged.png"
+            value: "../../components/vc-userView/images/user_unlogged.png",
+            reflectToAttribute: true
         },
         loggedicon: {
             type: String,
-            value: "../../components/vc-userView/images/user_logged.png"
+            value: "../../components/vc-userView/images/user_logged.png",
+            reflectToAttribute: true
         },
-    },
 
+    },
 
     ready: function () {
         this.addEventListener('eventFromUserCreateAccountButton', this._createAccount);
         this.addEventListener('eventFromUserValidateAccountButton', this._validateAccount);
         this.addEventListener('eventFromUserBackButton', this._openLogin);
+        this.addEventListener('eventFromUserLoginButton', this._logUser);
+        this.addEventListener('eventFromUserLogoutButton', this._unlogUser);
+        this._setVisibility();
     },
 
-    _userViewSetWidthLogin: function () {
-        var currImgRect = this.$.cardLogin.getBoundingClientRect();
-        if (currImgRect.width > 0) {
-            this.drawerwidthLogin = currImgRect.width;
+    hasErrors: function () {
+        return (this.userpassworderror || this.useremailerror || this.usernicknameerror || this.usericonerror || this.userphonenumbererror);
+    },
+
+    _getLoginWidth: function () {
+        var tempWidthNumber = this.$.cardLogin.getBoundingClientRect().width;
+
+        if (tempWidthNumber > 0) {
+            tempWidthNumber = this.$.cardLogin.getBoundingClientRect().width + 30;
+            this.loginwidth = tempWidthNumber;
         }
     },
 
-    _userViewSetWidthLogout: function () {
-        var currImgRect = this.$.cardLogout.getBoundingClientRect();
-        if (currImgRect.width > 0) {
-            this.drawerwidthLogout = currImgRect.width;
+    _getLogoutWidth: function () {
+        var tempWidthNumber = this.$.cardLogout.getBoundingClientRect().width;
+
+        if (tempWidthNumber > 0) {
+            tempWidthNumber = this.$.cardLogout.getBoundingClientRect().width + 30;
+            this.logoutwidth = tempWidthNumber;
         }
     },
 
-    _userViewSetWidthCreateAccount: function () {
-        var currImgRect = this.$.cardCreateAccount.getBoundingClientRect();
-        if (currImgRect.width > 0) {
-            this.drawerwidthCreateAccount = currImgRect.width;
+    _getCreateAccountWidth: function () {
+        var tempWidthNumber = this.$.cardCreateAccount.getBoundingClientRect().width;
+
+        if (tempWidthNumber > 0) {
+            tempWidthNumber = tempWidthNumber + 30;
+            this.createaccountwidth = tempWidthNumber;
         }
     },
 
     _createAccount: function (event) {
+        this.$.paperDrawerPanelLogin.togglePanel();
         this.noaccountcreation = false;
     },
 
     _validateAccount: function (event) {
-        var DBuseremail = '';
-        var DBuserpassword = '';
-        var DBusernickname = '';
         var DBusericon = '';
-        var DBuserphonenumber = '';
-        DBuseremail = this.useremail;
-        DBuserpassword = this.userpassword;
-        DBusernickname = this.usernickname;
         if (this.usericon == '') {
             DBusericon = "../../components/vc-userView/images/default_user.png";
         }
         else {
             DBusericon = this.usericon;
         }
-        DBuserphonenumber = this.userphonenumber;
+
     },
 
     _openLogin: function (event) {
+        this.$.paperDrawerPanelCreateAccount.togglePanel();
         this.noaccountcreation = true;
     },
+
+    _logUser: function (event) {
+        if (!this.hasErrors()) {
+            this.$.paperDrawerPanelLogin.togglePanel();
+        }
+    },
+
+    _unlogUser: function (event) {
+        this.$.paperDrawerPanelLogout.togglePanel();
+    },
+
 
     formatDisplayType: function (boolHide) {
         var displaytype = "";
@@ -163,14 +214,21 @@ Polymer({
             this.$.logoutPanelContainer.style.display = logoutVisibility.displayTypeParam;
             this.$.createAccountPanelContainer.style.display = accountCreationVisibility.displayTypeParam;
 
+            this.loginopened = false;
+            this.logoutopened = false;
+            this.createaccountopened = false;
+
             if (loginVisibility.toggleParam) {
                 this.$.paperDrawerPanelLogin.togglePanel();
+                this.loginopened = true;
             }
             if (logoutVisibility.toggleParam) {
                 this.$.paperDrawerPanelLogout.togglePanel();
+                this.logoutopened = true;
             }
             if (accountCreationVisibility.toggleParam) {
                 this.$.paperDrawerPanelCreateAccount.togglePanel();
+                this.createaccountopened = true;
             }
         }
     },

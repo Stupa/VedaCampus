@@ -15,12 +15,19 @@ Polymer({
         validator: { type: String, value: 'ssn-validator' },
         phonenumbervalue: {
             type: String,
+            value: '',
             observer: "simpleChanged",
             notify: true,
         },
         phonenumberlabel: {
             type: String,
+        },
+        phonenumbererror: {
+            type: Boolean,
+            notify: true,
+            value: false
         }
+
     },
 
     observers: [
@@ -28,7 +35,14 @@ Polymer({
     ],
 
     _computeValue: function (n1, n2, n3, n4, n5) {
-        this.phonenumbervalue = n1.trim() + '-' + n2.trim() + '-' + n3.trim() + '-' + n4.trim() + '-' + n5.trim();        
+        var strtest = '';
+        var regex = /^[A-Za-z0-9\-]{0,254}$/;
+        var goodFormat = false;
+
+        this.phonenumbervalue = n1.trim() + '-' + n2.trim() + '-' + n3.trim() + '-' + n4.trim() + '-' + n5.trim();
+        strtest = this.phonenumbervalue;
+        goodFormat = (strtest.match(regex) != null);
+        this.phonenumbererror = !goodFormat;        
     },
 
     ready: function () {

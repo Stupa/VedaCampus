@@ -5,6 +5,10 @@ Polymer({
             type: String,
             reflectToAttribute: true
         },
+        disabled: {
+            type: Boolean,
+            value: false,
+        },
         buttonlabel: {
             type: String,
             reflectToAttribute: true

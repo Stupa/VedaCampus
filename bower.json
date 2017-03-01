@@ -35,7 +35,10 @@
     "iron-meta": "PolymerElements/iron-meta#^1.1.2",
     "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.17",
     "paper-material": "PolymerElements/paper-material#^1.0.6",
-    "font-roboto": "https://github.com/PolymerElements/font-roboto.git#^1.0.1"
+    "font-roboto": "https://github.com/PolymerElements/font-roboto.git#^1.0.1",
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4",
+    "neon-elements": "PolymerElements/neon-elements#^1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.7"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

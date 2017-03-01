@@ -64,7 +64,6 @@ Polymer({
         console.log(this.currentuserDAO);
         this.currentuserDAO.login();
         this.userlogged = true;
-
     },
 
     logout: function (event) {

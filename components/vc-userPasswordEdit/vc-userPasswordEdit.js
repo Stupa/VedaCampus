@@ -4,10 +4,12 @@ Polymer({
         password: {
             type: String,
             observer: "passwordChanged",
-            notify: true
+            notify: true,
+            value: ''
         },
-        passwordcheck: {
+        passworderror: {
             type: Boolean,
+            value: true,
             notify: true
         }
     },
@@ -18,7 +20,7 @@ Polymer({
         var goodFormat = false;
         
         goodFormat = ((valid == null) || (valid == true)) && (strtest.match(regex) != null);
-        this.passwordcheck = !goodFormat;
+        this.passworderror = !goodFormat;
         this.$.txtPassword.invalid = !goodFormat;   
     }
 });
