@@ -1,0 +1,83 @@
+<dom-module id="vc-appStyle">
+    <template>
+        <style is="custom-style">
+             :host {
+                /*--app-primary-color: #4285f4;*/
+                --app-primary-color: #4C3C3F;
+                --app-secondary-color: black;
+                display: block;
+                min-height: 100%;
+            }
+
+
+            app-header {
+                color: #fff;
+                background-color: var(--app-primary-color);
+                background-image: url("images/veda13.png");
+                background-position-x: -342px;
+                height: 128px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+
+            app-header paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+
+
+            app-drawer {
+                --app-drawer-width: 128px;
+            }
+
+
+            .drawer-list {
+                margin: 0 20px;
+            }
+
+
+            .drawer-list a {
+                display: block;
+                padding: 0 16px;
+                text-decoration: none;
+                color: var(--app-secondary-color);
+                line-height: 40px;
+            }
+
+
+            .drawer-list a.iron-selected {
+                color: black;
+                font-weight: bold;
+            }
+
+
+            app-toolbar {
+                height: 128px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 0;
+            }
+
+
+            #testhead {
+                height: 128px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+             :host([has-scrolling-region])> ::content>app-header {
+                position: fixed;
+                top: 0;
+                height: 128px;
+                width: 500px;
+                left: 0;
+            }
+        </style>
+    </template>
+</dom-module>

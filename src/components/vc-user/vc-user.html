@@ -1,0 +1,132 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-password-input/paper-password-input.html">
+
+<link rel="import" href="../vc-userPhoneEdit/vc-userPhoneEdit.html">
+<link rel="import" href="../vc-userLoginButton/vc-userLoginButton.html">
+<link rel="import" href="../vc-userLogoutButton/vc-userLogoutButton.html">
+<link rel="import" href="../vc-userCreateAccountButton/vc-userCreateAccountButton.html">
+<link rel="import" href="../vc-userValidateAccountButton/vc-userValidateAccountButton.html">
+<link rel="import" href="../vc-userBackButton/vc-userBackButton.html">
+<link rel="import" href="../vc-user-main-panel-button/vc-user-main-panel-button.html">
+
+<link rel="import" href="../../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-styles/demo-pages.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+
+
+<link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+
+
+<link rel="import" href="vc-user-main-panel-column.html">
+<link rel="import" href="../vc-user-edit/vc-user-edit.html">
+<link rel="import" href="vc-user-password-validator.html">
+<link rel="import" href="vc-user-email-validator.html">
+
+
+<dom-module id="vc-user">
+  <style include="vc-user-shared-styles" is="custom-style">
+     :host {
+      display: block;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+
+
+    .panelContainer {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+
+
+    .card {
+      top: 0px;
+      margin: 0px;
+      /*margin-right: 32px;*/
+      padding-top: 0px;
+      color: #757575;
+      border-radius: 5px;
+      background-color: var(--app-primary-color);
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      height: 128px;
+      display: block;
+    }
+
+
+
+    .userColumn {
+      float: left;
+      padding: 2px;
+    }
+
+
+
+
+    paper-drawer-panel {
+      --paper-drawer-panel-main-container: {
+        background-color: transparent;
+        display: block;
+        text-align: right;
+        left: 0;
+      }
+      ;
+      --paper-drawer-panel-scrim: {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+      }
+      ;
+      --paper-drawer-panel-drawer-container: {
+        display: block;
+        background-color: transparent;
+        width: auto;
+      }
+      ;
+    }
+
+
+
+
+    .crappyFocus {
+      position: absolute;
+      display: inline-block;
+      left: 0px;
+      top: -100px;
+    }
+  </style>
+  <template>
+    <!-- Login panel -->
+    <vc-user-email-validator id="vc-user-email-validator" min-length="6"></vc-user-email-validator>
+    <vc-user-password-validator id="vc-user-password-validator" min-length="6"></vc-user-password-validator>
+    <div class="layout horizontal end-justified">
+      <div>
+        <paper-input label="E-mail" value="{{vc-user-email}}" auto-validate validator="vc-user-email-validator" invalid="true" error-message="Adresse e-mail incorrecte."></paper-input>
+        <paper-password-input label="Mot de passe" value="{{vc-user-password}}" auto-validate validator="vc-user-password-validator"
+          invalid="true" error-message="6 lettres ou chiffres min."></paper-password-input>
+      </div>
+      <div>
+        <paper-input label="E-mail" value="{{vc-user-email}}" auto-validate validator="vc-user-email-validator" invalid="true" error-message="Adresse e-mail incorrecte."></paper-input>
+        <paper-password-input label="Mot de passe" value="{{vc-user-password}}" auto-validate validator="vc-user-password-validator"
+          invalid="true" error-message="6 lettres ou chiffres min."></paper-password-input>
+      </div>
+    </div>
+  </template>
+  <script src=vc-user.js></script>
+</dom-module>

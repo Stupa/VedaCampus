@@ -8,22 +8,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="vc-userBackButtonStyle.html">
+<link rel="import" href="../../components/vc-user/vc-user-shared-styles.html">
+<link rel="import" href="../../components/vc-userButton/vc-userButton.html">
 
-    <title>Tests</title>
 
-    <script src="../bower_components/web-component-tester/browser.js"></script>
-  </head>
-  <body>
-    <script>
-      WCT.loadSuites([
-        'vc-view1.html?dom=shady',
-        'vc-view1.html?dom=shadow',
-      ]);
-    </script>
-  </body>
-</html>
+<dom-module id="vc-userBackButton">
+  <template>
+    <vc-userButton buttonid="btnBack" buttonlabel="Retour" buttonimage="{{buttonimage}}"></vc-userButton>
+  </template>
+
+  <script src="vc-userBackButton.js"></script>
+</dom-module>

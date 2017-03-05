@@ -8,18 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="shared-styles.html">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="vc-viewStyle.html">
 
-<dom-module id="my-view1">
+<dom-module id="vc-view">
   <template>
-    <style include="shared-styles">
-      :host {
-        display: block;
-
-        padding: 10px;
-      }
-    </style>
+    <style include="vc-viewStyle"></style>
 
     <div class="card">
       <div class="circle">1</div>
@@ -29,9 +23,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
   </template>
 
-  <script>
-    Polymer({
-      is: 'my-view1',
-    });
-  </script>
+  <script src=vc-view.js></script>
 </dom-module>

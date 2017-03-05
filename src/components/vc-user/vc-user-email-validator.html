@@ -1,0 +1,31 @@
+<!doctype html>
+<link rel="import" href="../../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+
+<!--
+Validates that the value has a certain minimal length
+-->
+<script>
+
+(function() {
+
+	Polymer({
+		is: 'vc-user-email-validator',
+		properties: {
+			/**
+			 * Minimal length
+			 */
+			minLength: Number
+		},
+		behaviors: [
+			Polymer.IronValidatorBehavior
+		],
+
+		validate: function(value) {
+			var regex = "^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$";
+			return value.length<255 && value.match(regex) != null;
+		}
+	});
+
+})();
+
+</script>

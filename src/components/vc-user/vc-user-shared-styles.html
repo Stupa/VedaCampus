@@ -1,0 +1,99 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../components/vc-user/vc-user-theme.html">
+<!-- shared styles for all views -->
+<dom-module id="vc-user-shared-styles">
+  <template>
+    <style include="vc-user-theme"></style>
+    <style>
+      a.vc-userButton,
+      a:hover.vc-userButton {
+        position: relative;
+        display: block;
+        text-align: center;
+        margin: 0px;
+        padding-top: 6px;
+        /*height: 32px;*/
+        /*width: 128px;*/
+        font-size: 12px;
+        color: #25191c;
+        text-decoration: none;
+      }
+
+      img.vc-userButton {
+        position: absolute;
+        display: inline-block;
+        vertical-align: center;
+        /*background-image: url("images/ico04.png");*/
+        background-repeat: no-repeat;
+        background-position-y: 0px;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        margin-top: 2px;
+      }
+
+
+      paper-input,
+      paper-password-input,
+      paper-input-container {
+        --paper-input-container-color: rgb(150, 173, 181);
+        --paper-input-container-focus-color: rgb(150, 173, 181);
+        --paper-input-container-invalid-color: #fff;
+        --paper-input-container-input-color: #fff;
+        --paper-input-container: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          padding-top: 2px;
+          padding-bottom: 14px;
+        }
+        ;
+
+        --paper-input-container-input: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          height: var(--vc-user-shared-styles-paper-input-container-theme-input-height);
+        }
+        ;
+        --paper-input-container-label: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          height: var(--vc-user-shared-styles-paper-input-container-theme-input-height);
+        }
+        ;
+        --paper-input-container-label-floating: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          height: var(--vc-user-shared-styles-paper-input-container-theme-floating-height);
+        }
+        ;
+        --paper-input-container-label-focus: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          height: var(--vc-user-shared-styles-paper-input-container-theme-floating-height);
+        }
+        ;
+        --paper-input-container-input-webkit-spinner: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+        }
+        ;
+        --paper-input-suffix: {
+          line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
+          font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
+          height: var(--vc-user-shared-styles-paper-input-container-theme-input-height);
+        }
+        ;
+      }
+    </style>
+  </template>
+</dom-module>
