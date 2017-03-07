@@ -21,13 +21,7 @@ Polymer({
         },
         phonenumberlabel: {
             type: String,
-        },
-        phonenumbererror: {
-            type: Boolean,
-            notify: true,
-            value: false
         }
-
     },
 
     observers: [

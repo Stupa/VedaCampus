@@ -9,11 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../components/vc-user/vc-user-theme.html">
+<link rel="import" href="../../vc-app-theme.html">
 <!-- shared styles for all views -->
 <dom-module id="vc-user-shared-styles">
   <template>
-    <style include="vc-user-theme"></style>
+    <style include="vc-app-theme"></style>
     <style>
       a.vc-userButton,
       a:hover.vc-userButton {
@@ -44,17 +44,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
       paper-input,
+      vc-userPhoneEdit,
       paper-password-input,
       paper-input-container {
-        --paper-input-container-color: rgb(150, 173, 181);
-        --paper-input-container-focus-color: rgb(150, 173, 181);
+        --paper-input-container-color: var(--vc-blue-color);
+        --paper-input-container-focus-color: var(--vc-blue-color);
         --paper-input-container-invalid-color: #fff;
         --paper-input-container-input-color: #fff;
+
         --paper-input-container: {
           line-height: var(--vc-user-shared-styles-paper-input-container-theme-line-height);
           font-size: var(--vc-user-shared-styles-paper-input-container-theme-font-size);
           padding-top: 2px;
-          padding-bottom: 14px;
+          padding-bottom: 14px;          
         }
         ;
 

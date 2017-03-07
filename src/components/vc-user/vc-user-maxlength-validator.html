@@ -7,19 +7,18 @@ Validates that the value has a certain minimal length
 <script>
 	(function () {
 		Polymer({
-			is: 'vc-user-password-validator',
+			is: 'vc-user-maxlength-validator',
 			properties: {
 				/**
 				 * Minimal length
 				 */
-				minLength: Number,
 				maxLength: Number
 			},
 			behaviors: [
 				Polymer.IronValidatorBehavior
 			],
 			validate: function (value) {
-				return value.length >= this.minLength && value.length <= this.maxLength;
+				return value.length <= this.maxLength;
 			}
 		});
 	})();

@@ -11,20 +11,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
-<link rel="import" href="vc-userPhoneEditStyle.html">
-<link rel="import" href="../../components/vc-user/vc-user-shared-styles.html">
-
-
-{{phonenumbervalue}}
+<link rel="import" href="../../components/vc-user/vc-user-shared-styles.html"> 
 <dom-module id="vc-userPhoneEdit">
   <template>
-    <style include="vc-user-shared-styles"></style>
-    <style include="vc-userPhoneEditStyle"></style>
+    <style is="custom-style">
+       :host {
+        display: block;
+        padding: 0px;
+      }
+      div.vc-userPhoneEdit {
+        display: inline-flex;
+      }
+      div.vc-userPhoneEdit {
+        text-align: center;
+      }
+    </style>
     <paper-input-container always-float-label="" attr-for-value="value" class="x-scope paper-input-container-0">
       <!--  <div class="floated-label-placeholder style-scope paper-input-container" aria-hidden="true">&nbsp;</div>-->
       <template is="dom-if" class="style-scope paper-input-container"></template>
       <div class="input-content label-is-floating style-scope paper-input-container">
-        <div class="label-and-input-container style-scope paper-input-container" id="labelAndInputContainer" label="{{phonenumberlabel}}" style="position: static;">
+        <div class="label-and-input-container style-scope paper-input-container" id="labelAndInputContainer" label="{{phonenumberlabel}}"
+          style="position: static;">
           <label>N° tél.</label>
           <ssn-input class="paper-input-input x-scope ssn-input-0" id="testinput">
             <ssn-validator class="style-scope ssn-input"></ssn-validator>
@@ -44,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <div class="add-on-content style-scope paper-input-container">
         <paper-input-error add-on="[0-9]*" class="x-scope paper-input-error-0">
-          SSN invalid!
+          Numéro incorrect !
         </paper-input-error>
       </div>
     </paper-input-container>

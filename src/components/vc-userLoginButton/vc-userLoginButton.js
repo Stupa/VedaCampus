@@ -9,19 +9,14 @@ Polymer({
             type: String,
             value: ''
         },
-        passworderror: {
-            type: Boolean,
-            notify: true,
-            observer: "_enableButton",
-        },
-        emailerror: {
+        error: {
             type: Boolean,
             notify: true,
             observer: "_enableButton",
         },
         buttonimage: {
             type: String,
-            value: "../../components/vc-user/images/login_disabled.png"
+            value: "../../../src/components/vc-user/images/login_disabled.png"
         },
         disabled: {
             type: Boolean,
@@ -34,19 +29,19 @@ Polymer({
     },
 
     logUser: function () {
-        if (!this.passworderror && !this.emailerror) {
+        if (!this.error) {
             this.fire('eventFromUserLoginButton', { txtEmail: this.email, txtPassword: this.password });
         }
     },
 
     _enableButton: function () {
-        if (this.passworderror || this.emailerror) {
-            this.buttonimage = "../../components/vc-user/images/login_disabled.png";
+        if (this.error) {
+            this.buttonimage = "../../../src/components/vc-user/images/login_disabled.png";
             this.unlisten(this, 'tap', 'logUser');
             this.disabled=true;
         }
         else {
-            this.buttonimage = "../../components/vc-user/images/login_enabled.png";
+            this.buttonimage = "../../../src/components/vc-user/images/login_enabled.png";
             this.listen(this, 'tap', 'logUser');
             this.disabled=false;
         }

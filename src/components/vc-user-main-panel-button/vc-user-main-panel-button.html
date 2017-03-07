@@ -10,23 +10,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../vc-animations/vc-slide-left-animation.html">
-<link rel="import" href="../vc-animations/vc-slide-from-left-animation.html">
-<link rel="import" href="../../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="vc-user-main-panel-button-style.html">
 <link rel="import" href="../../components/vc-user/vc-user-shared-styles.html">
 
 
 <dom-module id="vc-user-main-panel-button">
   <template>
-    <style include="vc-user-shared-styles"></style>
-    <style include="vc-user-main-panel-button-style"></style>
-    <paper-material id= "slideContainer" elevation="0">
+    <style include="vc-user-shared-styles" is="custom-style">
+       :host {
+        display: block;
+        height: 128px;
+      }
+
+      paper-material {
+        height: 128px;
+      }
+
+      .big {
+        --iron-icon-height: 32px;
+        --iron-icon-width: 32px;
+        margin-top: -2px;
+      }
+
+      .circle {
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 34px;
+        height: 34px;
+        text-align: center;
+        color: var(--vc-lightbrown-color);
+        border-radius: 50%;
+        background: var(--app-primary-color);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+
+    <paper-material id="slideContainer" elevation="0">
       <div class="circle" id="initLoginPanelCircle">
         <a href="">
-          <iron-icon src="[[usermainpanelicon]]" class="big" id="initLoginPanelButton"></iron-icon>
+          <iron-icon src="{{usermainpanelicon}}" class="big" id="initLoginPanelButton"></iron-icon>
         </a>
       </div>
     </paper-material>

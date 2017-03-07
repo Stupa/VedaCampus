@@ -42,7 +42,9 @@ Configuration:
 
       this._effect = new KeyframeEffect(node, [
         {'transform': 'none'},
-        {'transform': 'translateX(-'+node.transformParam+'%)'}
+                {'transform': 'translateX(-'+node.transformParam+'%)'}
+
+        
       ], this.timingFromConfig(config));
 
       if (config.transformOrigin) {

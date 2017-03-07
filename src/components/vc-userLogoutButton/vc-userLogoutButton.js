@@ -3,7 +3,7 @@ Polymer({
     properties: {
         buttonimage: {
             type: String,
-            value: "../../components/vc-user/images/logout.png"
+            value: "../../../src/components/vc-user/images/logout.png"
         }
     },
     listeners: {

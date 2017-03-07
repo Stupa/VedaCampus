@@ -29,7 +29,6 @@ Configuration:
 -->
 
 <script>
-
   Polymer({
 
     is: 'vc-slide-from-left-animation',
@@ -38,12 +37,13 @@ Configuration:
       Polymer.NeonAnimationBehavior
     ],
 
-    configure: function(config) {
+    configure: function (config) {
       var node = config.node;
 
       this._effect = new KeyframeEffect(node, [
-        {'transform': 'translateX(-'+node.transformParam+'%)'},
-        {'transform': 'none'}
+        { 'transform': 'none' },
+        { 'transform': 'translateX(' + node.transformParam + '%)' }
+
       ], this.timingFromConfig(config));
 
       if (config.transformOrigin) {

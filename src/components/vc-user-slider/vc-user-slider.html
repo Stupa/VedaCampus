@@ -9,26 +9,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../../components/vc-user/vc-user-shared-styles.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../vc-animations/vc-slide-left-animation.html">
+<link rel="import" href="../vc-animations/vc-slide-from-left-animation.html">
+<link rel="import" href="../../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 
 
-<dom-module id="vc-user-main-panel">
-  <style is="custom-style">
-     :host {
-      display: block;
-      height: 100%;
-    }
-
-  </style>
-  <style include="vc-user-shared-styles"></style>
-
+<dom-module id="vc-user-slider">
   <template>
-    <paper-material id="container" elevation="0" layout >
+    <style include="vc-user-shared-styles iron-flex iron-flex-alignment" is="custom-style">
+      .columncontainer {
+        height: 100%;
+      }
+    </style>
+
+    <div class="layout horizontal end-justified columncontainer">
       <content></content>
-    </paper-material>
+    </div>
   </template>
 
-  <script src="vc-user-main-panel.js"></script>
+  <script src="vc-user-slider.js"></script>
 </dom-module>
