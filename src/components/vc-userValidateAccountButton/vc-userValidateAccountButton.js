@@ -24,7 +24,7 @@ Polymer({
 
     validateAccount: function () {
         if (!this.error) {
-            this.fire('eventFromUserValidateAccountButton', {});
+            this.fire('eventFromUserButtonValidate', { name: 'setnoaccountcreationtruevalidate' });
         }
     },
 

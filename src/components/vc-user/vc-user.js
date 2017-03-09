@@ -1,51 +1,70 @@
 Polymer({
     is: 'vc-user',
     properties: {
+        // Database params
+        currentuserDAO: {
+            type: Object,
+        },
+        statusKnown: {
+            type: Object,
+            notify: true,
+        },
+        signedin: {
+            type: Object,
+            notify: true,
+        },
+        dataread: {
+            type: Object,
+            observer: '_dataready'
+        },
+        datawrite: {
+            type: Object,
+        },
+        usersDAO: {
+            type: Object,
+        },
+        table: {
+            type: String,
+            value: '',
+            reflectToAttribute: true,
+            notify: true,
+        },
+        user: {
+            type: Object,
+            observer: '_userChanged'
+        },
         // User fields
-        vcUserEmail: {
+        email: {
             type: String,
             reflectToAttribute: true,
-            observer: "_hasErrors",
             notify: true,
         },
-        vcUserPassword: {
+        password: {
             type: String,
             notify: true,
-            observer: "_hasErrors",
         },
-        vcUserNickname: {
+        nickname: {
             type: String,
             notify: true,
-            observer: "_hasErrors",
         },
-        vcUserIcon: {
+        icon: {
             type: String,
             notify: true,
-            observer: "_hasErrors",
         },
-        vcUserPhone: {
+        phone: {
             type: String,
             notify: true,
-            observer: "_hasErrors",
         },
         // User status
-        userloggedbyparent: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            observer: "_setUserlogged",
-        },
         userlogged: {
             type: Boolean,
             value: false,
             notify: true,
-            observer: "_setVisibility",
         },
         noaccountcreation: {
             type: Boolean,
             value: true,
             notify: true,
-            observer: "_setVisibility",
         },
         error: {
             type: Boolean,
@@ -64,96 +83,168 @@ Polymer({
             value: '',
             reflectToAttribute: true,
         },
+        waitbeforechange: {
+            type: Boolean,
+            value: false
+        },
     },
-    behaviors: [
-        Polymer.IronValidatorBehavior,
+
+    observers: [
+        '_setVisibility(userlogged, noaccountcreation)',
+        '_hasErrors(email,password,icon,phone,nickname)',
     ],
-    listeners: {
-        /*'tap': '_switchopened',*/
 
-    },
     ready: function () {
-        this.addEventListener('eventFromUserCreateAccountButton', this._createAccount);
-        this.addEventListener('eventFromUserValidateAccountButton', this._validateAccount);
-        this.addEventListener('eventFromUserBackButton', this._openLogin);
-        this.addEventListener('setnoaccountcreationfalse', this._createAccountSet);
-        this.addEventListener('setnoaccountcreationtrue', this._openLoginSet);
-        this.addEventListener('setuserloggedtrue', this._loggedtSet);
-        this.addEventListener('setuserloggedfalse', this._openLoginFromLogoutSet);
+        this.addEventListener('setnoaccountcreationfalse', this._setnoaccountcreationfalse);
+        this.addEventListener('setnoaccountcreationtruevalidate', this._setnoaccountcreationtruevalidate);
+        this.addEventListener('setnoaccountcreationtruecancel', this._setnoaccountcreationtruecancel);
+        this.addEventListener('setuserloggedtrue', this._setuserloggedtrue);
+        this.addEventListener('setuserloggedfalse', this._setuserloggedfalse);
+
+        this.addEventListener('eventFromUserButtonLogin', this._databaseProcessLogin);
+        this.addEventListener('eventFromUserButtonCreateAccount', this._databaseProcessNone);
+        this.addEventListener('eventFromUserButtonLogout', this._databaseProcessLogout);
+        this.addEventListener('eventFromUserButtonValidate', this._databaseProcessValidate);
+        this.addEventListener('eventFromUserButtonBack', this._databaseProcessNone);
+
+        this.addEventListener('eventFromSliderDisablePointerEvents', this._eventFromSliderDisablePointerEvents);
+        this.addEventListener('eventFromSliderEnablePointerEvents', this._eventFromSliderEnablePointerEvents);
+
+        this.usersDAO = new usersDAO();
+        this.table = this.usersDAO.getTable();
     },
 
-    _hasErrors: function (event) {
-        this.error = (!this.$.inputEmail.validate() || !this.$.inputPassword.$.input.validate() || !this.$.inputNickname.validate() || !this.$.inputPhone.validate() || !this.$.inputIcon.validate());
+    _eventFromSliderDisablePointerEvents: function (event) {
+
+
+
+        this.$.userLoginButton.style.pointerEvents = "none";
+        this.$.userCreateAccountButton.style.pointerEvents = "none";
+        this.$.userLogoutButton.style.pointerEvents = "none";
+        this.$.userValidateAccountButton.style.pointerEvents = "none";
+        this.$.userBackButton.style.pointerEvents = "none";
+        this.$.toggleButton.style.pointerEvents = "none";
+
+    },
+
+    _eventFromSliderEnablePointerEvents: function (event) {
+        
+        this.$.userLoginButton.style.pointerEvents = "auto";
+        this.$.userCreateAccountButton.style.pointerEvents = "auto";
+        this.$.userLogoutButton.style.pointerEvents = "auto";
+        this.$.userValidateAccountButton.style.pointerEvents = "auto";
+        this.$.userBackButton.style.pointerEvents = "auto";
+        this.$.toggleButton.style.pointerEvents = "auto";
+     
     },
 
 
-    _createAccount: function (event) {
-        this.waitedevent = 'setnoaccountcreationfalse';
+    _databaseProcessLogin: function (event) {
+        this.waitedevent = event.detail.name;
+        this.currentuserDAO = new dbuserDAO(this.$.auth, this.email, this.password);
+        this.currentuserDAO.login();
+    },
+
+    _databaseProcessNone: function (event) {
+        this.waitedevent = event.detail.name;
+        this.closeSlider();
+    },
+
+    _databaseProcessLogout: function (event) {
+        this.waitedevent = event.detail.name;
+        this.currentuserDAO.logout();
+        this.closeSlider();
+    },
+
+    _databaseProcessValidate: function (event) {
+        this.waitedevent = event.detail.name;
+        this.currentuserDAO = new dbuserDAO(this.$.auth, this.email, this.password);
+        // Autolog
+        this.currentuserDAO.create();
+    },
+
+
+    _userChanged: function (event) {
+        if (this.user != undefined) {
+            if ((this.noaccountcreation == false) && (this.signedin == true)) {
+                var DBusericon = '';
+                if (!this.noaccountcreation) {
+                    if (this.icon == '') {
+                        DBusericon = "../../../src/components/vc-user/images/default_user.png";
+                    }
+                    else {
+                        DBusericon = this.icon;
+                    }
+                    this.usersDAO.setQuery(this.$.query);
+                    this.usersDAO.setValues(DBusericon, this.phone, this.nickname);
+                    this.usersDAO.add();
+                }
+            }
+        }
+    },
+
+    _dataready: function (event) {
+        if (this.userlogged != undefined && this.noaccountcreation != undefined && this.dataread.icon != undefined) {
+            this.closeSlider();
+        }
+    },
+
+    closeSlider: function () {
         this.opened = !this.opened;
     },
 
-    _createAccountSet: function (event) {
+    _setuserloggedtrue: function (event) {
+        this.waitbeforechange = false;
+        this.userlogged = true;
+        this.waitedevent = '';
+    },
+
+    _setuserloggedfalse: function (event) {
+        this.waitbeforechange = false;
+        this.userlogged = false;
+        this.waitedevent = '';
+    },
+
+    _setnoaccountcreationtruevalidate: function (event) {
+        this.waitbeforechange = true;
+        this.noaccountcreation = true;
+        this.waitbeforechange = false;
+        this.userlogged = true;
+        this.waitedevent = '';
+    },
+
+    _setnoaccountcreationfalse: function (event) {
+        this.waitbeforechange = false;
         this.noaccountcreation = false;
         this.waitedevent = '';
     },
 
-
-    _openLogin: function (event) {
-        this.waitedevent = 'setnoaccountcreationtrue';
-        this.opened = !this.opened;
-    },
-
-    _openLoginSet: function (event) {
+    _setnoaccountcreationtruecancel: function (event) {
+        this.waitbeforechange = false;
         this.noaccountcreation = true;
         this.waitedevent = '';
     },
 
-    _setUserlogged: function (event) {
-        if (this.userloggedbyparent) {
-            this.waitedevent = 'setuserloggedtrue';
-        }
-        else {
-            this.waitedevent = 'setuserloggedfalse';
-        }
-        this.opened = !this.opened;
+
+    _onFirebaseError: function (event) {
     },
 
-    _loggedtSet: function (event) {
-        this.userlogged = true;
-         this.waitedevent = '';
+    _hasErrors: function (email, password, icon, phone, nickname) {
+        this.error = (!this.$.inputEmail.validate() || !this.$.inputPassword.$.input.validate() || !this.$.inputNickname.validate() || !this.$.inputPhone.validate() || !this.$.inputIcon.validate());
     },
 
-    _openLoginFromLogoutSet: function (event) {
-        this.userlogged = false;
-         this.waitedevent = '';
-    },
-
-    _validateAccount: function (event) {
-        var DBusericon = '';
-        if (this.usericon == '') {
-            DBusericon = "../../../src/components/vc-user/images/default_user.png";
-        }
-        else {
-            DBusericon = this.usericon;
-        }
-    },
-
-    _logUser: function (event) {
-        if (!this.error) {
-        }
-    },
-
-    _unlogUser: function (event) {
-    },
-
-    _setVisibility: function (event) {
-        if (this.userlogged != undefined && this.noaccountcreation != undefined) {
+    _setVisibility: function (userlogged, noaccountcreation) {
+        if (this.userlogged != undefined && this.noaccountcreation != undefined && !this.waitbeforechange != undefined && !this.waitbeforechange) {
             this.$.loginColumnText.style.display = !this.userlogged ? 'block' : 'none';
             this.$.loginColumnButtons.style.display = !this.userlogged && this.noaccountcreation ? 'block' : 'none';
             this.$.createAccountColumnText1.style.display = !this.userlogged && !this.noaccountcreation ? 'block' : 'none';
             this.$.createAccountColumnText2.style.display = !this.userlogged && !this.noaccountcreation ? 'block' : 'none';
             this.$.createAccountColumnButtons.style.display = !this.userlogged && !this.noaccountcreation ? 'block' : 'none';
             this.$.logoutColumnButtons.style.display = this.userlogged && this.noaccountcreation ? 'block' : 'none';
+            this.$.loggedColumnLabel.style.display = this.userlogged && this.noaccountcreation ? 'block' : 'none';
+            if (this.opened == undefined) {
+                this.opened = true;
+            }
             this.opened = !this.opened;
         }
 

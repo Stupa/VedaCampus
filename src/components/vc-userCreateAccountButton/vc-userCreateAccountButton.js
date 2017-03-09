@@ -11,7 +11,7 @@ Polymer({
     },
 
     createAccount: function () {
-        this.fire('eventFromUserCreateAccountButton', {});
+        this.fire('eventFromUserButtonCreateAccount', { name: 'setnoaccountcreationfalse' });
     }
 });
 

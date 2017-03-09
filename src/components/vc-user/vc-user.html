@@ -10,6 +10,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../../../bower_components/polymerfire/firebase-document.html">
+
+
+
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../../../bower_components/paper-password-input/paper-password-input.html">
 <link rel="import" href="../vc-userPhoneEdit/vc-userPhoneEdit.html">
@@ -24,15 +32,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../vc-user-slider/vc-user-slider.html">
 
-<link rel="import" href="../../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-
-<link rel="import" href="../../../bower_components/paper-styles/demo-pages.html">
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
-
-
-<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
-
 <link rel="import" href="vc-user-password-validator.html">
 <link rel="import" href="vc-user-email-validator.html">
 <link rel="import" href="vc-user-maxlength-validator.html">
@@ -45,23 +44,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 0;
       height: 100%;
       width: 100%;
+      font-size: 14px;
+      color: var(--vc-blue-color);
     }
-
+    
     .columncontainer {
       height: 100%;
     }
-
+    
+    .rowcontainer {
+      width: 100%;
+    }
+    
+    .loggedmargin {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    
+    .loggedmarginverttop {
+      margin-top: 4px;
+    }
+    
+    .loggedmarginvertbottom {
+      margin-bottom: 4px;
+    }
+    
     .column {
       margin-left: 2px;
       margin-right: 2px;
     }
-
+    
     .columncoloured {
       margin-left: 2px;
       margin-right: 2px;
       background-color: var(--app-primary-color);
     }
-
+    
     .elementtop {
       margin-top: -4px;
       margin-bottom: 4px;
@@ -70,7 +88,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding-right: 8px;
       background-color: var(--app-primary-color);
     }
-
+    
+    .elementtoptransp {
+      margin-top: -4px;
+      margin-bottom: 4px;
+      padding-bottom: 4px;
+      padding-left: 8px;
+      padding-right: 8px;
+      height: 100%;
+      background-color: transparent;
+    }
+    
     .elementbottom {
       margin-top: 4px;
       padding-bottom: 6px;
@@ -78,8 +106,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding-right: 8px;
       background-color: var(--app-primary-color);
     }
+    
+    .amber {
+      background: var(--app-primary-color);
+    }
+    
+    .imagesize {
+      --iron-icon-height: 64px;
+      --iron-icon-width: 64px;
+    }
   </style>
   <template>
+
+    <firebase-auth app-name="vc" id="auth" user="{{user}}" status-known="{{statusKnown}}" signed-in="{{signedin}}" on-error="_onFirebaseError"></firebase-auth>
+    <firebase-query app-name="vc" id="query" path="/[[table]]/[[user.uid]]" data="{{datawrite}}"></firebase-query>
+    <firebase-document app-name="vc" path="/[[table]]/[[user.uid]]" data="{{dataread}}"></firebase-document>
 
     <vc-user-email-validator id="vc-user-email-validator" min-length="6"></vc-user-email-validator>
     <vc-user-password-validator id="vc-user-password-validator" min-length="6" max-length="254"></vc-user-password-validator>
@@ -90,39 +131,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <vc-user-slider id="slider" opened="{{opened}}" waitedevent="[[waitedevent]]">
 
         <!-- Toggle button -->
-        <vc-user-main-panel-button userlogged="[[userlogged]]"></vc-user-main-panel-button>
+        <vc-user-main-panel-button id="toggleButton" userlogged="[[userlogged]]"></vc-user-main-panel-button>
         <!-- Text components -->
         <div class="column" id="loginColumnText">
           <div class="elementtop">
-            <paper-input id="inputEmail" label="E-mail" value="{{vcUserEmail}}" auto-validate validator="vc-user-email-validator" invalid="true"
+            <paper-input id="inputEmail" label="E-mail" value="{{email}}" auto-validate validator="vc-user-email-validator" invalid="true"
               error-message="Adresse e-mail incorrecte."></paper-input>
           </div>
           <div class="elementbottom">
-            <paper-password-input id="inputPassword" label="Mot de passe" value="{{vcUserPassword}}" auto-validate validator="vc-user-password-validator"
+            <paper-password-input id="inputPassword" label="Mot de passe" value="{{password}}" auto-validate validator="vc-user-password-validator"
               invalid="true" error-message="6 lettres ou chiffres min."></paper-password-input>
           </div>
         </div>
 
         <div class="column" id="createAccountColumnText1">
           <div class="elementtop">
-            <paper-input id="inputNickname" label="Pseudonyme" value="{{vcUserNickname}}" auto-validate validator="vc-user-maxlength-validator"
+            <paper-input id="inputNickname" label="Pseudonyme" value="{{nickname}}" auto-validate validator="vc-user-maxlength-validator"
               error-message="254 caractères maximum."></paper-input>
           </div>
           <div class="elementbottom">
-            <vc-userPhoneEdit id="inputPhone" simplelabel="N° tél." simplevalue="{{vcUserPhone}}"></vc-userPhoneEdit>
+            <vc-userPhoneEdit id="inputPhone" simplelabel="N° tél." phonenumbervalue="{{phone}}"></vc-userPhoneEdit>
           </div>
         </div>
 
         <div class="columncoloured" id="createAccountColumnText2">
           <div class="elementtop">
-            <paper-input id="inputIcon" label="URL Icône ( 128px x 128px )" value="{{vcUserIcon}}" auto-validate validator="vc-user-maxlength-validator"
+            <paper-input id="inputIcon" label="URL Icône ( 128px x 128px )" value="{{icon}}" auto-validate validator="vc-user-maxlength-validator"
               error-message="254 caractères maximum."></paper-input>
           </div>
         </div>
 
+        <div id="loggedColumnLabel" class="horizontal layout center-justified columncontainer column">
+          <div class="vertical layout center-justified columncontainer">
+            <paper-material class="vertical layout center-justified rowcontainer amber" elevation="2">
+              <div class="horizontal layout center-justified rowcontainer">
+                <iron-icon src="[[dataread.icon]]" alt="Default" class="imagesize loggedmargin loggedmarginverttop"></iron-icon>
+                <!--<iron-icon src="[[data.icon]]" alt="Default" class="imagesize loggedmargin loggedmarginverttop"></iron-icon>-->
+              </div>
+              <div class="horizontal layout center-justified rowcontainer">
+                <div class="loggedmargin">
+                  Bienvenue
+                </div>
+              </div>
+              <div class="horizontal layout center-justified rowcontainer">
+                <div class="loggedmargin loggedmarginvertbottom">
+                  [[dataread.nickname]]
+                </div>
+              </div>
+            </paper-material>
+          </div>
+        </div>
+
+
         <!-- Button components -->
         <div class="columncoloured" id="loginColumnButtons">
-          <vc-userLoginButton id="userLoginButton" email="[[useremail]]" password="[[userpassword]]" error="[[error]]"></vc-userLoginButton>
+          <vc-userLoginButton id="userLoginButton" email="[[email]]" password="[[password]]" error="[[error]]"></vc-userLoginButton>
           <vc-userCreateAccountButton id="userCreateAccountButton"></vc-userCreateAccountButton>
         </div>
         <div class="columncoloured" id="logoutColumnButtons">
@@ -136,5 +199,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </vc-user-slider>
     </div>
   </template>
+  <script src="../../domain/dbuser.js"></script>
+  <script src="../../DAO/dbuserDAO.js"></script>
+  <script src="../../domain/users.js"></script>
+  <script src="../../DAO/usersDAO.js"></script>
   <script src=vc-user.js></script>
 </dom-module>

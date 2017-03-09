@@ -14,6 +14,10 @@ class dbrootDAO {
         return this.auth;
     }
 
+    getConfig() {
+        return this.config;
+    }
+
     init() {
         firebase.initializeApp(this.config);
         this.auth = firebase.auth();

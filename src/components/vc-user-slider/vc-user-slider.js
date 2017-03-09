@@ -9,8 +9,8 @@ Polymer({
         opened: {
             type: Boolean,
             notify: true,
+            value: true,
             reflectToAttribute: true,
-            value: false,
             observer: "_mainPanelMove"
         },
         toggle: {
@@ -33,12 +33,12 @@ Polymer({
                     'entry': {
                         name: 'vc-slide-left-animation',
                         node: this,
-                        timing: { duration: 300 },
+                        timing: { duration: 3000 },
                     },
                     'exit': {
                         name: 'vc-slide-from-left-animation',
                         node: this,
-                        timing: { duration: 300 },
+                        timing: { duration: 3000 },
                     }
                 }
             }
@@ -68,6 +68,8 @@ Polymer({
     },
 
     _mainPanelMove: function () {
+        this.fire('eventFromSliderDisablePointerEvents', {});
+ 
         var backWidthNumber;
         if (this.offsetWidth > 0) {
             if (this.opened == true) {
@@ -111,6 +113,8 @@ Polymer({
         else {
             this.style.marginRight = 0;
         }
+        this.fire('eventFromSliderEnablePointerEvents', {});
+
     },
 
 });

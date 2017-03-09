@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="components/vc-menuButtonList/vc-menuButtonList.html">
 <link rel="import" href="components/vc-user/vc-user.html">
 
@@ -31,15 +32,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <dom-module id="vc-app">
-  <template>
-    <style>
-                  :host {
+    <template>
+        <style>
+             :host {
                 /*--app-primary-color: #4285f4;*/
                 --app-primary-color: #4C3C3F;
-                --app-secondary-color: black;                
+                --app-secondary-color: black;
                 display: block;
                 min-height: 100%;
             }
+
+
 
 
             app-header {
@@ -55,9 +58,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
 
+
+
             app-header paper-icon-button {
                 --paper-icon-button-ink-color: white;
             }
+
+
 
 
             app-drawer {
@@ -65,9 +72,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
 
+
+
             .drawer-list {
                 margin: 0 20px;
             }
+
+
 
 
             .drawer-list a {
@@ -79,10 +90,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
 
+
+
             .drawer-list a.iron-selected {
                 color: black;
                 font-weight: bold;
             }
+
+
 
 
             app-toolbar {
@@ -93,6 +108,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 width: 100%;
                 padding: 0;
             }
+
+
 
 
             #testhead {
@@ -110,39 +127,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 width: 500px;
                 left: 0;
             }
-    </style>
+        </style>
 
-    <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-
-    <app-drawer-layout fullbleed>
-      <!-- Drawer content -->
-      <app-drawer id="drawer">
-        <vc-menuButtonList></vc-menuButtonList>
-      </app-drawer>
-
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
-        <app-header id="testhead" fixed condenses>
-          <app-toolbar sticky>
-            <!--<paper-icon-button icon="vc-icons:menu" drawer-toggle></paper-icon-button>-->
-            <div main-title>uiuo_uiouoyyuyuuyyyuiiyyiuy</div>
-            <vc-user userloggedbyparent=[[userlogged]]></vc-user>
-          </app-toolbar>
-        </app-header>
-
-        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <vc-view1 name="view1"></vc-view1>
-          <vc-view404 name="view404"></vc-view404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
-  </template>
+        <!--<firebase-app auth-domain="[[authDomain]]" database-url="[[databaseURL]]" api-key="[[apiKey]]"></firebase-app>-->
+        <firebase-app name="vc" auth-domain="vedacampus.firebaseapp.com" database-url="https://vedacampus.firebaseio.com" api-key="AIzaSyDcsS2GsecC2mFxUlgnCoYnPHI2hG_Z-tE"></firebase-app>
 
 
-  <script src="../bower_components/firebase/firebase.js"></script>
-  <script src="DAO/dbrootDAO.js"></script>
-  <script src="domain/dbuser.js"></script>
-  <script src="DAO/dbuserDAO.js"></script>
-  <script src="vc-app.js"></script>
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+        <app-drawer-layout fullbleed>
+            <!-- Drawer content -->
+            <app-drawer id="drawer">
+                <vc-menuButtonList></vc-menuButtonList>
+            </app-drawer>
+
+            <!-- Main content -->
+            <app-header-layout has-scrolling-region>
+                <app-header id="testhead" fixed condenses>
+                    <app-toolbar sticky>
+                        <!--<paper-icon-button icon="vc-icons:menu" drawer-toggle></paper-icon-button>-->
+                        <div main-title></div>
+                        <vc-user></vc-user>
+                    </app-toolbar>
+                </app-header>
+
+                <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+                    <vc-view1 name="view1"></vc-view1>
+                    <vc-view404 name="view404"></vc-view404>
+                </iron-pages>
+            </app-header-layout>
+        </app-drawer-layout>
+    </template>
+
+
+    <script src="../bower_components/firebase/firebase.js"></script>
+    <script src="DAO/dbrootDAO.js"></script>
+    <!--<script src="domain/dbuser.js"></script>
+    <script src="DAO/dbuserDAO.js"></script>-->
+    <script src="vc-app.js"></script>
 </dom-module>

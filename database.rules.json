@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+      ".read": "auth.uid == $uid || auth.uid == 'uTE0YGSyIphTijQjObP8Whs0sd02'",
+      ".write": "auth.uid == $uid || auth.uid == 'uTE0YGSyIphTijQjObP8Whs0sd02'",
+      ".validate": "newData.child('nickname').isString() && newData.child('icon').isString() && newData.child('phone').isString()"
+      }
+    }
+  }
+}

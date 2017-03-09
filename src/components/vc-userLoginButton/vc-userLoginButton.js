@@ -1,14 +1,6 @@
 Polymer({
     is: 'vc-userLoginButton',
     properties: {
-        email: {
-            type: String,
-            value: ''
-        },
-        password: {
-            type: String,
-            value: ''
-        },
         error: {
             type: Boolean,
             notify: true,
@@ -30,7 +22,7 @@ Polymer({
 
     logUser: function () {
         if (!this.error) {
-            this.fire('eventFromUserLoginButton', { txtEmail: this.email, txtPassword: this.password });
+            this.fire('eventFromUserButtonLogin', { name: 'setuserloggedtrue' });
         }
     },
 

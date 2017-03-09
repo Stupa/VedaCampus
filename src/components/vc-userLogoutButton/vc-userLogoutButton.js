@@ -10,7 +10,7 @@ Polymer({
         'tap': 'logoutUser'
     },
     logoutUser: function () {
-        this.fire('eventFromUserLogoutButton', {});
+        this.fire('eventFromUserButtonLogout', { name: 'setuserloggedfalse' });
     }
 });
 

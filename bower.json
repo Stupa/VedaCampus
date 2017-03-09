@@ -21,7 +21,9 @@
     "paper-password-input": "Collaborne/paper-password-input#^1.0.5",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.11",
     "paper-button": "PolymerElements/paper-button#^1.0.14",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4",
+    "paper-card": "PolymerElements/paper-card#^1.1.4",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

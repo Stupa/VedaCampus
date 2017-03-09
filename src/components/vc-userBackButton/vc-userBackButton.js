@@ -10,7 +10,7 @@ Polymer({
         'tap': 'backUser'
     },
     backUser: function () {
-        this.fire('eventFromUserBackButton', {});
+        this.fire('eventFromUserButtonBack', { name: 'setnoaccountcreationtruecancel' });
     }
 });
 
