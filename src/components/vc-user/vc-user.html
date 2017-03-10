@@ -38,6 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <dom-module id="vc-user">
+
   <style include="vc-user-shared-styles iron-flex iron-flex-alignment" is="custom-style">
      :host {
       display: block;
@@ -74,41 +75,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin-right: 2px;
     }
     
-    .columncoloured {
-      margin-left: 2px;
-      margin-right: 2px;
-      background-color: var(--app-primary-color);
-    }
-    
     .elementtop {
       margin-top: -4px;
       margin-bottom: 4px;
       padding-bottom: 4px;
       padding-left: 8px;
       padding-right: 8px;
-      background-color: var(--app-primary-color);
     }
-    
-    .elementtoptransp {
-      margin-top: -4px;
-      margin-bottom: 4px;
-      padding-bottom: 4px;
-      padding-left: 8px;
-      padding-right: 8px;
-      height: 100%;
-      background-color: transparent;
-    }
-    
+
     .elementbottom {
       margin-top: 4px;
       padding-bottom: 6px;
       padding-left: 8px;
       padding-right: 8px;
-      background-color: var(--app-primary-color);
     }
     
-    .amber {
-      background: var(--app-primary-color);
+    .primaryColor {
+      background-color: var(--app-primary-color);
     }
     
     .imagesize {
@@ -116,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       --iron-icon-width: 64px;
     }
   </style>
+
   <template>
 
     <firebase-auth app-name="vc" id="auth" user="{{user}}" status-known="{{statusKnown}}" signed-in="{{signedin}}" on-error="_onFirebaseError"></firebase-auth>
@@ -127,46 +111,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <vc-user-maxlength-validator id="vc-user-maxlength-validator" max-length="254"></vc-user-maxlength-validator>
 
     <div class="layout horizontal end-justified columncontainer">
-
       <vc-user-slider id="slider" opened="{{opened}}" waitedevent="[[waitedevent]]">
+
 
         <!-- Toggle button -->
         <vc-user-main-panel-button id="toggleButton" userlogged="[[userlogged]]"></vc-user-main-panel-button>
+        
+        
         <!-- Text components -->
         <div class="column" id="loginColumnText">
-          <div class="elementtop">
+          <div class="elementtop primaryColor">
             <paper-input id="inputEmail" label="E-mail" value="{{email}}" auto-validate validator="vc-user-email-validator" invalid="true"
-              error-message="Adresse e-mail incorrecte."></paper-input>
+              error-message="Adresse e-mail incorrecte"></paper-input>
           </div>
-          <div class="elementbottom">
+          <div class="elementbottom primaryColor">
             <paper-password-input id="inputPassword" label="Mot de passe" value="{{password}}" auto-validate validator="vc-user-password-validator"
               invalid="true" error-message="6 lettres ou chiffres min."></paper-password-input>
           </div>
         </div>
 
         <div class="column" id="createAccountColumnText1">
-          <div class="elementtop">
+          <div class="elementtop primaryColor">
             <paper-input id="inputNickname" label="Pseudonyme" value="{{nickname}}" auto-validate validator="vc-user-maxlength-validator"
-              error-message="254 caractères maximum."></paper-input>
+              error-message="254 caractères maximum"></paper-input>
           </div>
-          <div class="elementbottom">
+          <div class="elementbottom primaryColor">
             <vc-userPhoneEdit id="inputPhone" simplelabel="N° tél." phonenumbervalue="{{phone}}"></vc-userPhoneEdit>
           </div>
         </div>
 
-        <div class="columncoloured" id="createAccountColumnText2">
-          <div class="elementtop">
-            <paper-input id="inputIcon" label="URL Icône ( 128px x 128px )" value="{{icon}}" auto-validate validator="vc-user-maxlength-validator"
-              error-message="254 caractères maximum."></paper-input>
+        <div class="column primaryColor" id="createAccountColumnText2">
+          <div class="elementtop primaryColor">
+            <paper-input id="inputIcon" label="URL icône ( 128px x 128px )" value="{{icon}}" auto-validate validator="vc-user-maxlength-validator"
+              error-message="254 caractères maximum"></paper-input>
           </div>
         </div>
 
         <div id="loggedColumnLabel" class="horizontal layout center-justified columncontainer column">
           <div class="vertical layout center-justified columncontainer">
-            <paper-material class="vertical layout center-justified rowcontainer amber" elevation="2">
+            <paper-material class="vertical layout center-justified rowcontainer primaryColor" elevation="2">
               <div class="horizontal layout center-justified rowcontainer">
                 <iron-icon src="[[dataread.icon]]" alt="Default" class="imagesize loggedmargin loggedmarginverttop"></iron-icon>
-                <!--<iron-icon src="[[data.icon]]" alt="Default" class="imagesize loggedmargin loggedmarginverttop"></iron-icon>-->
               </div>
               <div class="horizontal layout center-justified rowcontainer">
                 <div class="loggedmargin">
@@ -184,21 +169,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
         <!-- Button components -->
-        <div class="columncoloured" id="loginColumnButtons">
+        <div class="column primaryColor" id="loginColumnButtons">
           <vc-userLoginButton id="userLoginButton" email="[[email]]" password="[[password]]" error="[[error]]"></vc-userLoginButton>
           <vc-userCreateAccountButton id="userCreateAccountButton"></vc-userCreateAccountButton>
         </div>
-        <div class="columncoloured" id="logoutColumnButtons">
+        <div class="column primaryColor" id="logoutColumnButtons">
           <vc-userLogoutButton id="userLogoutButton"></vc-userLogoutButton>
         </div>
-        <div class="columncoloured" id="createAccountColumnButtons">
+        <div class="column primaryColor" id="createAccountColumnButtons">
           <vc-userValidateAccountButton id="userValidateAccountButton" error="[[error]]"></vc-userValidateAccountButton>
           <vc-userBackButton id="userBackButton"></vc-userBackButton>
         </div>
 
+
       </vc-user-slider>
     </div>
+
   </template>
+
+
   <script src="../../domain/dbuser.js"></script>
   <script src="../../DAO/dbuserDAO.js"></script>
   <script src="../../domain/users.js"></script>

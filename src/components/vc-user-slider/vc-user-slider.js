@@ -33,12 +33,12 @@ Polymer({
                     'entry': {
                         name: 'vc-slide-left-animation',
                         node: this,
-                        timing: { duration: 3000 },
+                        timing: { duration: 300 },
                     },
                     'exit': {
                         name: 'vc-slide-from-left-animation',
                         node: this,
-                        timing: { duration: 3000 },
+                        timing: { duration: 300 },
                     }
                 }
             }

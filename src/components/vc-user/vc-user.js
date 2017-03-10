@@ -36,7 +36,6 @@ Polymer({
         // User fields
         email: {
             type: String,
-            reflectToAttribute: true,
             notify: true,
         },
         password: {
@@ -114,30 +113,22 @@ Polymer({
         this.table = this.usersDAO.getTable();
     },
 
+    setPointerEvents: function (value) {
+        this.$.userLoginButton.style.pointerEvents = value;
+        this.$.userCreateAccountButton.style.pointerEvents = value;
+        this.$.userLogoutButton.style.pointerEvents = value;
+        this.$.userValidateAccountButton.style.pointerEvents = value;
+        this.$.userBackButton.style.pointerEvents = value;
+        this.$.toggleButton.style.pointerEvents = value;
+    },
+
     _eventFromSliderDisablePointerEvents: function (event) {
-
-
-
-        this.$.userLoginButton.style.pointerEvents = "none";
-        this.$.userCreateAccountButton.style.pointerEvents = "none";
-        this.$.userLogoutButton.style.pointerEvents = "none";
-        this.$.userValidateAccountButton.style.pointerEvents = "none";
-        this.$.userBackButton.style.pointerEvents = "none";
-        this.$.toggleButton.style.pointerEvents = "none";
-
+        this.setPointerEvents("none");
     },
 
     _eventFromSliderEnablePointerEvents: function (event) {
-        
-        this.$.userLoginButton.style.pointerEvents = "auto";
-        this.$.userCreateAccountButton.style.pointerEvents = "auto";
-        this.$.userLogoutButton.style.pointerEvents = "auto";
-        this.$.userValidateAccountButton.style.pointerEvents = "auto";
-        this.$.userBackButton.style.pointerEvents = "auto";
-        this.$.toggleButton.style.pointerEvents = "auto";
-     
+        this.setPointerEvents("auto");
     },
-
 
     _databaseProcessLogin: function (event) {
         this.waitedevent = event.detail.name;
@@ -163,23 +154,18 @@ Polymer({
         this.currentuserDAO.create();
     },
 
-
     _userChanged: function (event) {
-        if (this.user != undefined) {
-            if ((this.noaccountcreation == false) && (this.signedin == true)) {
-                var DBusericon = '';
-                if (!this.noaccountcreation) {
-                    if (this.icon == '') {
-                        DBusericon = "../../../src/components/vc-user/images/default_user.png";
-                    }
-                    else {
-                        DBusericon = this.icon;
-                    }
-                    this.usersDAO.setQuery(this.$.query);
-                    this.usersDAO.setValues(DBusericon, this.phone, this.nickname);
-                    this.usersDAO.add();
-                }
+        if (this.noaccountcreation == false && this.signedin == true && this.user != undefined) {
+            var DBusericon = '';
+            if (this.icon == '') {
+                DBusericon = "../../../src/components/vc-user/images/default_user.png";
             }
+            else {
+                DBusericon = this.icon;
+            }
+            this.usersDAO.setQuery(this.$.query);
+            this.usersDAO.setValues(DBusericon, this.phone, this.nickname);
+            this.usersDAO.add();
         }
     },
 
@@ -193,38 +179,33 @@ Polymer({
         this.opened = !this.opened;
     },
 
-    _setuserloggedtrue: function (event) {
-        this.waitbeforechange = false;
-        this.userlogged = true;
+    _setUIStatus: function (userlogged, noaccountcreation) {
+        if (noaccountcreation != null && userlogged != null) { this.waitbeforechange = true; } else { this.waitbeforechange = false; }
+        if (noaccountcreation != null) { this.noaccountcreation = noaccountcreation; }
+        if (noaccountcreation != null && userlogged != null) { this.waitbeforechange = false; }
+        if (userlogged != null) { this.userlogged = userlogged; }
         this.waitedevent = '';
+    },
+
+    _setuserloggedtrue: function (event) {
+        this._setUIStatus(true, null);
     },
 
     _setuserloggedfalse: function (event) {
-        this.waitbeforechange = false;
-        this.userlogged = false;
-        this.waitedevent = '';
+        this._setUIStatus(false, null);
     },
 
     _setnoaccountcreationtruevalidate: function (event) {
-        this.waitbeforechange = true;
-        this.noaccountcreation = true;
-        this.waitbeforechange = false;
-        this.userlogged = true;
-        this.waitedevent = '';
+        this._setUIStatus(true, true);
     },
 
     _setnoaccountcreationfalse: function (event) {
-        this.waitbeforechange = false;
-        this.noaccountcreation = false;
-        this.waitedevent = '';
+        this._setUIStatus(null, false);
     },
 
     _setnoaccountcreationtruecancel: function (event) {
-        this.waitbeforechange = false;
-        this.noaccountcreation = true;
-        this.waitedevent = '';
+        this._setUIStatus(null, true);
     },
-
 
     _onFirebaseError: function (event) {
     },
